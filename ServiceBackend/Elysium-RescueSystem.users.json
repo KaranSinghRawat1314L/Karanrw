@@ -1,0 +1,131 @@
+[
+    {
+        "_id": {
+            "$oid": "66a4fbf6e1f69696ec432fdb"
+        },
+        "name": "Vishal Mittal",
+        "phone": 9540872761,
+        "email": "vishalmittalrohini@gmail.com",
+        "password": "$2b$10$L0PHdml9BhuYBQJzA9XE8uzA7GqcP.PB1wJwsqWP3zIIO.WU//KYK",
+        "profilePic": "",
+        "address": "",
+        "bloodGroup": "",
+        "userType": "user",
+        "lastLoc": {
+            "type": "Point",
+            "coordinates": [77.0974647, 28.7042068]
+        },
+        "emergencyHistory": [],
+        "medicalHistory": [],
+        "emergencyContact": {
+            "username": "",
+            "phone": 0
+        },
+        "locale": "",
+        "license": 0,
+        "vehicleInfo": {
+            "brand": "",
+            "model": "",
+            "color": "",
+            "rc": "",
+            "insurance": ""
+        },
+        "identificationMark": "",
+        "aadhaar": 0,
+        "futureLoc": {
+            "location": "",
+            "time": ""
+        },
+        "testStatus": "",
+        "sosType": "carCrash",
+        "picture": "",
+        "currentStatus": "offline",
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "66a511eaed4c89f3d9baa503"
+        },
+        "name": "Kartikey Tiwari",
+        "phone": 9818792477,
+        "email": "tiwari.kartik3002@gmail.com",
+        "password": "$2b$10$Y4tLkrthhnqIr2.Hmx308u5vHvaG1Nxr1IxA9e05D97mgh1a4qBUS",
+        "profilePic": "",
+        "address": "",
+        "bloodGroup": "",
+        "userType": "user",
+        "lastLoc": {
+            "type": "Point",
+            "coordinates": [77.1522653, 28.7590299]
+        },
+        "emergencyHistory": [],
+        "medicalHistory": [],
+        "emergencyContact": {
+            "username": "",
+            "phone": 0
+        },
+        "locale": "",
+        "license": 0,
+        "vehicleInfo": {
+            "brand": "",
+            "model": "",
+            "color": "",
+            "rc": "",
+            "insurance": ""
+        },
+        "identificationMark": "",
+        "aadhaar": 0,
+        "futureLoc": {
+            "location": "",
+            "time": ""
+        },
+        "testStatus": "",
+        "sosType": "sos",
+        "picture": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAA...0gNDOVOmf/9k=",
+        "currentStatus": "offline",
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "66a511eaed4c89f3d9baa503"
+        },
+        "name": "Kartikey Tiwari",
+        "phone": 9818792477,
+        "email": "tiwari.kartik3002@gmail.com",
+        "password": "$2b$10$Y4tLkrthhnqIr2.Hmx308u5vHvaG1Nxr1IxA9e05D97mgh1a4qBUS",
+        "profilePic": "",
+        "address": "",
+        "bloodGroup": "",
+        "userType": "user",
+        "lastLoc": {
+            "type": "Point",
+            "coordinates": [77.112313, 28.736535]
+        },
+        "emergencyHistory": [],
+        "medicalHistory": [],
+        "emergencyContact": {
+            "username": "",
+            "phone": 0
+        },
+        "locale": "",
+        "license": 0,
+        "vehicleInfo": {
+            "brand": "",
+            "model": "",
+            "color": "",
+            "rc": "",
+            "insurance": ""
+        },
+        "identificationMark": "",
+        "aadhaar": 0,
+        "futureLoc": {
+            "location": "",
+            "time": ""
+        },
+        "testStatus": "",
+        "sosType": "sos",
+        "picture": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAA...0gNDOVOmf/9k=",
+        "currentStatus": "offline",
+        "__v": 0
+    }
+]
