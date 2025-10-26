@@ -6,7 +6,12 @@ import DashboardLayout from 'src/layouts/dashboard';
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
+<<<<<<< HEAD
 export const LoginPage = lazy(() => import('src/pages/login'));
+=======
+export const Login = lazy(() => import('src/pages/login'));
+export const Signup = lazy(() => import('src/pages/Signup'));
+>>>>>>> 906622b (googleauth addition)
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
@@ -31,7 +36,15 @@ export default function Router() {
     },
     {
       path: 'login',
+<<<<<<< HEAD
       element: <LoginPage />,
+=======
+      element: <Login />,
+    },
+    {
+      path: 'signup',
+      element: <Signup />,
+>>>>>>> 906622b (googleauth addition)
     },
     {
       path: '404',

@@ -94,9 +94,14 @@ export default function AppView() {
 
             return {
               id: (index + 1).toString(),
+<<<<<<< HEAD
               title: `${item.sosType} at Lat: ${
                 item.lastLoc.coordinates[1] || 'Unknown latitude'
               }, Long: ${item.lastLoc.coordinates[0] || 'Unknown longitude'}`, // Template literal with formatted coordinates
+=======
+              title: `${item.sosType} at Lat: ${item.lastLoc.coordinates[1] || 'Unknown latitude'
+                }, Long: ${item.lastLoc.coordinates[0] || 'Unknown longitude'}`, // Template literal with formatted coordinates
+>>>>>>> 906622b (googleauth addition)
               description: item.text,
               image: `/assets/images/covers/cover_${coverNumber}.jpg`,
               link: item.images && item.images.length > 0 ? item.images[0] : '',
@@ -167,7 +172,11 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Running Services"
+<<<<<<< HEAD
             total={userData.runningServices.count}
+=======
+            total={userData.runningServices?.count || 0} // <- safe access
+>>>>>>> 906622b (googleauth addition)
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
           />
@@ -176,7 +185,11 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Pending Services"
+<<<<<<< HEAD
             total={userData.pendingServices.count}
+=======
+            total={userData.pendingServices?.count || 0} // <- safe access
+>>>>>>> 906622b (googleauth addition)
             color="error"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
           />
@@ -194,11 +207,17 @@ export default function AppView() {
         <Grid xs={12} md={12} lg={8}>
           {selectedLocation.lat !== 0 && selectedLocation.lng !== 0 ? (
             <iframe
+<<<<<<< HEAD
               src={`https://www.google.com/maps/embed?pb=!4v${new Date().getTime()}!6m8!1m7!1s${
                 selectedLocation.lat
               },${selectedLocation.lng}!2m2!1d${selectedLocation.lat}!2d${
                 selectedLocation.lng
               }!3f299.8245!4f0!5f0.7820865974627469`}
+=======
+              src={`https://www.google.com/maps/embed?pb=!4v${new Date().getTime()}!6m8!1m7!1s${selectedLocation.lat
+                },${selectedLocation.lng}!2m2!1d${selectedLocation.lat}!2d${selectedLocation.lng
+                }!3f299.8245!4f0!5f0.7820865974627469`}
+>>>>>>> 906622b (googleauth addition)
               width="800"
               height="600"
               style={{ border: 0 }}
