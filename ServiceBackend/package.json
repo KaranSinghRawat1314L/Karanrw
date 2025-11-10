@@ -9,20 +9,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-<<<<<<< HEAD
-=======
     "axios": "^1.12.2",
     "bcrypt": "^6.0.0",
->>>>>>> 906622b (googleauth addition)
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "expres": "^0.0.5",
     "express": "^4.21.2",
-<<<<<<< HEAD
-=======
     "google-auth-library": "^10.4.2",
->>>>>>> 906622b (googleauth addition)
     "mongoose": "^8.6.1"
   }
 }

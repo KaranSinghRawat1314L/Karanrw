@@ -1,31 +1,60 @@
-# Node modules
-node_modules/
+# =====================================================
+# Root .gitignore for ServiceFront + ServiceBackend
+# =====================================================
 
+# ------------------------------
+# Node Modules
+# ------------------------------
+ServiceFront/node_modules/
+ServiceBackend/node_modules/
+
+# ------------------------------
+# Environment Files
+# ------------------------------
+ServiceFront/.env
+ServiceFront/.env.local
+ServiceFront/.env.*.local
+
+ServiceBackend/.env
+ServiceBackend/.env.local
+ServiceBackend/.env.*.local
+
+# ------------------------------
 # Logs
+# ------------------------------
 logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# Dependency directories
+# ------------------------------
+# Build / Output Folders
+# ------------------------------
+ServiceFront/dist/
+ServiceFront/build/
+ServiceFront/out/
+
+ServiceBackend/dist/
+ServiceBackend/build/
+ServiceBackend/out/
+
+# ------------------------------
+# Dependency Directories
+# ------------------------------
 jspm_packages/
 
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# Build outputs
-dist/
-build/
-out/
-
-# VS Code settings
+# ------------------------------
+# Editor / System Files
+# ------------------------------
 .vscode/
-
-# MacOS
 .DS_Store
-
-# Optional: OS files
 Thumbs.db
+
+# ------------------------------
+# Optional: lock files (uncomment if you don't want to commit)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+# ------------------------------

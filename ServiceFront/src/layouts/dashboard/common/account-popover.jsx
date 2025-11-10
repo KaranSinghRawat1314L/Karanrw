@@ -2,7 +2,9 @@ import Cookies from 'js-cookie';
 import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Popover from '@mui/material/Popover';
 import { alpha } from '@mui/material/styles';
@@ -10,67 +12,78 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
-// import { useRouter } from 'next/router'; // Assuming Next.js for routing
 import { useRouter } from 'src/routes/hooks';
 
+// Menu items shown inside the popover
 const MENU_OPTIONS = [
-  {
-    label: 'Home',
-    icon: 'eva:home-fill',
-  },
-  {
-    label: 'Profile',
-    icon: 'eva:person-fill',
-  },
-  {
-    label: 'Settings',
-    icon: 'eva:settings-2-fill',
-  },
+  { label: 'Home', path: '/' },
+  { label: 'Profile', path: '/profile' },
+  { label: 'Settings', path: '/settings' },
 ];
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
-  const [account, setAccount] = useState({
-    displayName: 'None',
-    email: 'None',
-    photoURL: '/assets/images/avatars/avatar_25.jpg',
-  });
-
+  const [account, setAccount] = useState(null);
   const router = useRouter();
 
+  // ✅ Check user cookie every time it changes (real-time)
   useEffect(() => {
-    // Check if cookie exists
-    const userCookie = Cookies.get('user');
-    if (userCookie) {
-      const userData = JSON.parse(userCookie);
-      setAccount({
-        displayName: userData.servicename || 'None',
-        email: userData.email || 'None',
-        photoURL: '/assets/images/avatars/avatar_25.jpg', // Default image for all users
-      });
-    } else {
-      router.push('/login');
-    }
-  }, [router]);
+    const updateAccount = () => {
+      const userCookie = Cookies.get('user');
+      if (userCookie) {
+        const userData = JSON.parse(userCookie);
+        setAccount({
+          displayName: userData.servicename || 'User',
+          email: userData.email || '',
+          photoURL: '/assets/images/avatars/avatar_25.jpg',
+        });
+      } else {
+        setAccount(null);
+      }
+    };
 
-  const handleOpen = (event) => {
-    setOpen(event.currentTarget);
-  };
+    // Run once on mount
+    updateAccount();
 
-  const handleClose = () => {
-    setOpen(null);
-  };
+    // Listen to cookie changes using interval (since Cookies lib doesn’t emit events)
+    const interval = setInterval(updateAccount, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleOpen = (event) => setOpen(event.currentTarget);
+  const handleClose = () => setOpen(null);
 
   const handleLogout = () => {
-    Cookies.remove('user'); // Remove user cookie
-    setAccount({
-      displayName: 'None',
-      email: 'None',
-      photoURL: '/assets/images/avatars/avatar_25.jpg',
-    });
-    router.push('/login'); // Redirect to login page
+    Cookies.remove('user');
+    setAccount(null);
+    handleClose();
   };
 
+  // ✅ If NOT logged in → show Login & Signup buttons instead of Avatar
+  if (!account) {
+    return (
+      <Stack direction="row" spacing={1}>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="small"
+          onClick={() => router.push('/login')}
+        >
+          Login
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          onClick={() => router.push('/signup')}
+        >
+          Sign Up
+        </Button>
+      </Stack>
+    );
+  }
+
+  // ✅ If logged in → show Avatar popover
   return (
     <>
       <IconButton
@@ -105,12 +118,7 @@ export default function AccountPopover() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{
-          sx: {
-            p: 0,
-            mt: 1,
-            ml: 0.75,
-            width: 200,
-          },
+          sx: { p: 0, mt: 1, ml: 0.75, width: 200 },
         }}
       >
         <Box sx={{ my: 1.5, px: 2 }}>
@@ -125,7 +133,13 @@ export default function AccountPopover() {
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         {MENU_OPTIONS.map((option) => (
-          <MenuItem key={option.label} onClick={handleClose}>
+          <MenuItem
+            key={option.label}
+            onClick={() => {
+              handleClose();
+              router.push(option.path);
+            }}
+          >
             {option.label}
           </MenuItem>
         ))}

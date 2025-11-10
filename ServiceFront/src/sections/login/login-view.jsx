@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-import Cookies from 'js-cookie'; // For handling cookies
-import { useState } from 'react';
-=======
 import axios from 'axios';
 import Cookies from 'js-cookie'; // For handling cookies
 import { useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
->>>>>>> 906622b (googleauth addition)
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -45,9 +40,6 @@ export default function LoginView() {
 //   Cookies.set('user', JSON.stringify({ name: "Dev User", email }), { expires: 7 });
 //   router.push('/'); 
 // };
-<<<<<<< HEAD
-
-=======
   const Login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       console.log("Google Token:", tokenResponse);
@@ -74,7 +66,6 @@ export default function LoginView() {
     },
     onError: (e) => console.log("Login Failed:", e),
   });
->>>>>>> 906622b (googleauth addition)
   const handleClick = async () => {
     setLoading(true);
     setError(null);
@@ -88,11 +79,7 @@ export default function LoginView() {
         },
         body: JSON.stringify({ email, password }),
       });
-<<<<<<< HEAD
-
-=======
 console.log("VITE_API_URL is:", import.meta.env.VITE_API_URL);
->>>>>>> 906622b (googleauth addition)
       const data = await response.json();
 
       if (response.ok) {
@@ -196,11 +183,7 @@ console.log("VITE_API_URL is:", import.meta.env.VITE_API_URL);
 
           <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
             Don’t have an account?
-<<<<<<< HEAD
-            <Link variant="subtitle2" sx={{ ml: 0.5 }}>
-=======
             <Link variant="subtitle2" onClick={() => router.push('/signup')} sx={{ ml: 0.5 }}>
->>>>>>> 906622b (googleauth addition)
               Get started
             </Link>
           </Typography>
@@ -212,10 +195,7 @@ console.log("VITE_API_URL is:", import.meta.env.VITE_API_URL);
               color="inherit"
               variant="outlined"
               sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
-<<<<<<< HEAD
-=======
               onClick={()=>{Login()}}
->>>>>>> 906622b (googleauth addition)
             >
               <Iconify icon="eva:google-fill" color="#DF3E30" />
             </Button>
@@ -230,19 +210,7 @@ console.log("VITE_API_URL is:", import.meta.env.VITE_API_URL);
               <Iconify icon="eva:facebook-fill" color="#1877F2" />
             </Button>
 
-<<<<<<< HEAD
-            <Button
-              fullWidth
-              size="large"
-              color="inherit"
-              variant="outlined"
-              sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
-            >
-              <Iconify icon="eva:twitter-fill" color="#1C9CEA" />
-            </Button>
-=======
           
->>>>>>> 906622b (googleauth addition)
           </Stack>
 
           <Divider sx={{ my: 3 }}>

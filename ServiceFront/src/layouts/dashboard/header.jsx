@@ -23,22 +23,25 @@ import NotificationsPopover from './common/notifications-popover';
 
 export default function Header({ onOpenNav }) {
   const theme = useTheme();
-
   const lgUp = useResponsive('up', 'lg');
 
   const renderContent = (
     <>
+      {/* Sidebar toggle on mobile */}
       {!lgUp && (
         <IconButton onClick={onOpenNav} sx={{ mr: 1 }}>
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
       )}
 
+      {/* Search bar always visible */}
       <Searchbar />
 
+      {/* Push content (like popovers) to right side */}
       <Box sx={{ flexGrow: 1 }} />
 
-      <Stack direction="row" alignItems="center" spacing={1}>
+      {/* Right section icons */}
+      <Stack direction="row" alignItems="center" spacing={1.5}>
         <LanguagePopover />
         <NotificationsPopover />
         <AccountPopover />

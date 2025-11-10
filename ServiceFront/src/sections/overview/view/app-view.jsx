@@ -5,46 +5,93 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
-import { useRouter } from 'src/routes/hooks';
-
 import AppNewsUpdate from '../app-news-update';
 import AppCurrentVisits from '../app-current-visits';
 import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
 import AppConversionRates from '../app-conversion-rates';
 
-let coverCounter = 1; // Counter to track cover numbers
+// ===============================
+// OUTSIDE COMPONENT: IfUser ✅
+// ===============================
+const IfUser = ( userData) => {
+  if (!userData) {
+    return <h1>User Not Logged In</h1>;
+  }
+  return (
+      <>
+        <Typography variant="h4" sx={{ mb: 5 }}>
+          Hi, Welcome back 👋 {userData?.servicename}!
+        </Typography>
+
+        <Grid container spacing={3}>
+          <Grid xs={12} sm={6} md={3}>
+            <AppWidgetSummary
+              title="Total Service Completed"
+              total={userData?.totalServiceCompleted}
+              color="success"
+              icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
+            />
+          </Grid>
+
+          <Grid xs={12} sm={6} md={3}>
+            <AppWidgetSummary
+              title="Service Completed Today"
+              total={userData?.serviceCompletedToday}
+              color="info"
+              icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+            />
+          </Grid>
+
+          <Grid xs={12} sm={6} md={3}>
+            <AppWidgetSummary
+              title="Running Services"
+              total={userData?.runningServices?.count || 0}
+              color="warning"
+              icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
+            />
+          </Grid>
+
+          <Grid xs={12} sm={6} md={3}>
+            <AppWidgetSummary
+              title="Pending Services"
+              total={userData?.pendingServices?.count || 0}
+              color="error"
+              icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
+            />
+          </Grid>
+        </Grid>
+      </>
+    );
+};
+
+// ===============================
+// MAIN COMPONENT: AppView ✅
+// ===============================
+let coverCounter = 1;
 
 export default function AppView() {
   const [userData, setUserData] = useState(null);
   const [newsData, setNewsData] = useState([]);
-  const [sosData, setSosData] = useState([]); // For SOS section
-  const [selectedLocation, setSelectedLocation] = useState({ lat: 0, lng: 0 }); // To store selected location
-  const [selectedImage, setSelectedImage] = useState(''); // To store selected image
-  const router = useRouter();
+  const [sosData, setSosData] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState({ lat: 0, lng: 0 });
+  const [selectedImage, setSelectedImage] = useState('');
 
   useEffect(() => {
-    // Retrieve user data from cookie
     const storedUser = Cookies.get('user');
-
     if (storedUser) {
       setUserData(JSON.parse(storedUser));
     }
 
-    // Fetch the data from the /service/getx endpoint (Request Details)
     async function fetchNewsData() {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}service/getx`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
         });
 
         if (response.ok) {
           const data = await response.json();
-
-          // Map the data and limit to 3 items
           const mappedData = data.slice(0, 3).map((item, index) => {
             const coverNumber = coverCounter;
             coverCounter = coverCounter >= 24 ? 1 : coverCounter + 1;
@@ -74,34 +121,24 @@ export default function AppView() {
       }
     }
 
-    // Fetch the data from the /service/getsos endpoint (SOS Details)
     async function fetchSosData() {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}service/getsos`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
         });
 
         if (response.ok) {
           const data = await response.json();
-
-          // Map the data and limit to 3 items
           const mappedData = data.slice(0, 3).map((item, index) => {
             const coverNumber = coverCounter;
             coverCounter = coverCounter >= 24 ? 1 : coverCounter + 1;
 
             return {
               id: (index + 1).toString(),
-<<<<<<< HEAD
               title: `${item.sosType} at Lat: ${
                 item.lastLoc.coordinates[1] || 'Unknown latitude'
-              }, Long: ${item.lastLoc.coordinates[0] || 'Unknown longitude'}`, // Template literal with formatted coordinates
-=======
-              title: `${item.sosType} at Lat: ${item.lastLoc.coordinates[1] || 'Unknown latitude'
-                }, Long: ${item.lastLoc.coordinates[0] || 'Unknown longitude'}`, // Template literal with formatted coordinates
->>>>>>> 906622b (googleauth addition)
+              }, Long: ${item.lastLoc.coordinates[0] || 'Unknown longitude'}`,
               description: item.text,
               image: `/assets/images/covers/cover_${coverNumber}.jpg`,
               link: item.images && item.images.length > 0 ? item.images[0] : '',
@@ -123,7 +160,6 @@ export default function AppView() {
     fetchSosData();
   }, []);
 
-  // Handle item click
   const handleItemClick = (item) => {
     if (item.lastLoc) {
       setSelectedLocation({
@@ -131,93 +167,27 @@ export default function AppView() {
         lng: item.lastLoc[0] || 0,
       });
     } else {
-      setSelectedLocation({
-        lat: 0,
-        lng: 0,
-      });
-      setSelectedImage(item.imageLink || '/assets/images/products/No_image_available.svg'); // Set image if location is not available
+      setSelectedLocation({ lat: 0, lng: 0 });
+      setSelectedImage(item.imageLink || '/assets/images/products/No_image_available.svg');
     }
   };
 
-  if (!userData) {
-    router.push('/login'); // Redirect if no user data
-    return <div />;
-  }
-
   return (
     <Container maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Hi, Welcome back 👋 {userData.servicename}!
-      </Typography>
+      <IfUser userData={userData} />
 
       <Grid container spacing={3}>
-        <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
-            title="Total Service Completed"
-            total={userData.totalServiceCompleted}
-            color="success"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
-          />
-        </Grid>
-
-        <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
-            title="Service Completed Today"
-            total={userData.serviceCompletedToday}
-            color="info"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
-          />
-        </Grid>
-
-        <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
-            title="Running Services"
-<<<<<<< HEAD
-            total={userData.runningServices.count}
-=======
-            total={userData.runningServices?.count || 0} // <- safe access
->>>>>>> 906622b (googleauth addition)
-            color="warning"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
-          />
-        </Grid>
-
-        <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
-            title="Pending Services"
-<<<<<<< HEAD
-            total={userData.pendingServices.count}
-=======
-            total={userData.pendingServices?.count || 0} // <- safe access
->>>>>>> 906622b (googleauth addition)
-            color="error"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
-          />
-        </Grid>
-
         <Grid xs={12} md={6} lg={4}>
-          <Grid xs={12} md={6} lg={4}>
-            <AppNewsUpdate title="Request Details" list={newsData} onClick={handleItemClick} />
-          </Grid>
-
-          <Grid xs={12} md={6} lg={4}>
-            <AppNewsUpdate title="SOS" list={sosData} onClick={handleItemClick} />
-          </Grid>
+          <AppNewsUpdate title="Request Details" list={newsData} onClick={handleItemClick} />
+          <AppNewsUpdate title="SOS" list={sosData} onClick={handleItemClick} />
         </Grid>
+
         <Grid xs={12} md={12} lg={8}>
           {selectedLocation.lat !== 0 && selectedLocation.lng !== 0 ? (
             <iframe
-<<<<<<< HEAD
               src={`https://www.google.com/maps/embed?pb=!4v${new Date().getTime()}!6m8!1m7!1s${
                 selectedLocation.lat
-              },${selectedLocation.lng}!2m2!1d${selectedLocation.lat}!2d${
-                selectedLocation.lng
-              }!3f299.8245!4f0!5f0.7820865974627469`}
-=======
-              src={`https://www.google.com/maps/embed?pb=!4v${new Date().getTime()}!6m8!1m7!1s${selectedLocation.lat
-                },${selectedLocation.lng}!2m2!1d${selectedLocation.lat}!2d${selectedLocation.lng
-                }!3f299.8245!4f0!5f0.7820865974627469`}
->>>>>>> 906622b (googleauth addition)
+              },${selectedLocation.lng}!2m2!1d${selectedLocation.lat}!2d${selectedLocation.lng}!3f299.8245!4f0!5f0.7820865974627469`}
               width="800"
               height="600"
               style={{ border: 0 }}
